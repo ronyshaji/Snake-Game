@@ -14,6 +14,7 @@ class Game {
            std::size_t target_frame_duration);
   int GetScore() const;
   int GetSize() const;
+  void writeNameToFile();
 
  private:
   Snake snake;
@@ -28,10 +29,14 @@ class Game {
   int score{0};
   bool isSpecial{false};
 
+  std::string playername_{ "Player 1"};
+
   void PlaceFood();
   void Update();
   bool specialFood(std::mt19937 &rng);
   void foodUpdate();
+  void getPlayerName();
+  void writeName();
 };
 
 #endif

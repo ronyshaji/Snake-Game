@@ -1,6 +1,9 @@
 #include "game.h"
 #include <iostream>
 #include "SDL.h"
+#include <string>
+#include <fstream>
+#include <thread>
 
 Game::Game(std::size_t grid_width, std::size_t grid_height)
     : snake(grid_width, grid_height),
@@ -13,6 +16,11 @@ Game::Game(std::size_t grid_width, std::size_t grid_height)
 
 void Game::Run(Controller const &controller, Renderer &renderer,
                std::size_t target_frame_duration) {
+  
+  
+  //Get player logic
+  getPlayerName();              
+
   Uint32 title_timestamp = SDL_GetTicks();
   Uint32 frame_start;
   Uint32 frame_end;
@@ -25,6 +33,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, snake);
+    //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     Update();
     renderer.Render(snake, food, isSpecial);
     frame_end = SDL_GetTicks();
@@ -48,6 +57,33 @@ void Game::Run(Controller const &controller, Renderer &renderer,
       SDL_Delay(target_frame_duration - frame_duration);
     }
   }
+}
+
+//Read the playerName from the keyboard
+void Game::getPlayerName()
+{
+  std::cout << "Hurray! welcome to the snake game !! \n Enter your name: ";
+  std::getline(std::cin, playername_);
+}
+
+void Game::writeName() 
+{
+  std::ofstream outputFile;
+  outputFile.open("Gamestatics.txt", std::ios::app);
+
+  if(outputFile){
+    outputFile << "Player Name: " << playername_ << ", Score: " << score << std::endl;
+    outputFile.close();
+    std::cout << "The player Name and score was written to the file: Gamestatics.txt" << std::endl;
+  }
+  else {
+    std::cerr << "File cannot be opened !!" << std::endl;
+  }
+}
+
+void Game::writeNameToFile()
+{
+  writeName();
 }
 
 void Game::PlaceFood() {

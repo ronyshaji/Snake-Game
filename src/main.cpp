@@ -18,5 +18,11 @@ int main() {
   std::cout << "Game has terminated successfully!\n";
   std::cout << "Score: " << game.GetScore() << "\n";
   std::cout << "Size: " << game.GetSize() << "\n";
+  game.writeNameToFile();
   return 0;
-}
+} 
+
+//Modifications
+// 1.SPecial color to the food
+// 2. File writing 
+// 3. Simple pause the game
