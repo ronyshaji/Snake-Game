@@ -6,9 +6,11 @@
 #include "controller.h"
 #include "renderer.h"
 #include "snake.h"
+#include "speedcontrol.h"
 
-class Game {
- public:
+class Game
+{
+public:
   Game(std::size_t grid_width, std::size_t grid_height);
   void Run(Controller const &controller, Renderer &renderer,
            std::size_t target_frame_duration);
@@ -16,7 +18,11 @@ class Game {
   int GetSize() const;
   void writeNameToFile();
 
- private:
+  ~Game() { delete control; }
+
+private:
+  // Dynamic memory allocation for a speedcontrol class object
+  speedcontrol *control;
   Snake snake;
   SDL_Point food;
 
@@ -25,17 +31,15 @@ class Game {
   std::uniform_int_distribution<int> random_w;
   std::uniform_int_distribution<int> random_h;
   std::uniform_int_distribution<int> dist;
+  bool firstpass{false};
 
   int score{0};
   bool isSpecial{false};
-
-  std::string playername_{ "Player 1"};
 
   void PlaceFood();
   void Update();
   bool specialFood(std::mt19937 &rng);
   void foodUpdate();
-  void getPlayerName();
   void writeName();
 };
 

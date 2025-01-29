@@ -3,24 +3,24 @@
 #include "SDL.h"
 #include <string>
 #include <fstream>
+#include <string>
 #include <thread>
+#include "speedcontrol.h"
 
 Game::Game(std::size_t grid_width, std::size_t grid_height)
-    : snake(grid_width, grid_height),
+    : control(new speedcontrol()),
+      snake(control, grid_width, grid_height),
       engine(dev()),
       random_w(0, static_cast<int>(grid_width - 1)),
       random_h(0, static_cast<int>(grid_height - 1)),
-      dist(1, 10) {
+      dist(1, 10)
+       {
   PlaceFood();
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
                std::size_t target_frame_duration) {
   
-  
-  //Get player logic
-  getPlayerName();              
-
   Uint32 title_timestamp = SDL_GetTicks();
   Uint32 frame_start;
   Uint32 frame_end;
@@ -33,7 +33,6 @@ void Game::Run(Controller const &controller, Renderer &renderer,
 
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, snake);
-    //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     Update();
     renderer.Render(snake, food, isSpecial);
     frame_end = SDL_GetTicks();
@@ -59,20 +58,15 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   }
 }
 
-//Read the playerName from the keyboard
-void Game::getPlayerName()
-{
-  std::cout << "Hurray! welcome to the snake game !! \n Enter your name: ";
-  std::getline(std::cin, playername_);
-}
-
+//Function to write the score and player's name to .txt file
 void Game::writeName() 
 {
   std::ofstream outputFile;
   outputFile.open("Gamestatics.txt", std::ios::app);
 
+  auto playername = control->printPlayerName();
   if(outputFile){
-    outputFile << "Player Name: " << playername_ << ", Score: " << score << std::endl;
+    outputFile << "Player Name: " << playername << ", Score: " << score << std::endl;
     outputFile.close();
     std::cout << "The player Name and score was written to the file: Gamestatics.txt" << std::endl;
   }
@@ -81,6 +75,7 @@ void Game::writeName()
   }
 }
 
+//Getter function to access the private method
 void Game::writeNameToFile()
 {
   writeName();
@@ -102,6 +97,7 @@ void Game::PlaceFood() {
 }
 
 void Game::Update() {
+  
   if (!snake.alive) return;
 
   snake.Update();
@@ -111,20 +107,20 @@ void Game::Update() {
 
   // Check if there's food over here
   if (food.x == new_x && food.y == new_y) {
-    isSpecial = specialFood(engine);
-    if(isSpecial)
-    {
-      score +=2;
-    }
-    else
-    { 
-      score++;
-    }
-    foodUpdate();
-    std::cout << "Special food: " << (isSpecial ? "Yes" : "No") << std::endl;
 
+    //Changed the logic to accomodate special food
+    if(firstpass)
+    {
+      isSpecial = specialFood(engine);
+    }
+
+    foodUpdate();
+    firstpass = true;
+    score += (isSpecial) ? 2 : 1;  
+  
   }
 }
+
 
 void Game::foodUpdate()
 {
@@ -134,6 +130,7 @@ void Game::foodUpdate()
   snake.speed += 0.02;
 }
 
+//Selecting special food randomly
 bool Game::specialFood(std::mt19937 &rng)
 {
   int randNum = dist(rng);

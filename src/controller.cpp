@@ -18,19 +18,6 @@ void Controller::pauseGame() const
   
 }
 
-/*std::chrono::milliseconds Controller::awakeTime() const
-{
-  end_ = std::chrono::high_resolution_clock::now();
-  duration_ = std::chrono::duration_cast<std::chrono::milliseconds>(end_ - start_);
-  return duration_;
-}
-
-void Controller::continueGame() const
-{
-  std::this_thread::sleep_for(awakeTime());
-  //std::cout << awakeTime() << std::endl;;
-} */
-
 
 void Controller::HandleInput(bool &running, Snake &snake) const{
   SDL_Event e;
