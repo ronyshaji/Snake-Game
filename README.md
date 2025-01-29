@@ -158,52 +158,55 @@ src/
  └── speedcontrol.h
 ```
 Below are the newly added functions:
+
 - **In controller.cpp**  
-  `void Controller::pauseGame() const`
+  `void Controller::pauseGame()` [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/controller.cpp#L13)
+
 
 - **In game.cpp**  
-  `void Game::writeName()`  
-  `void Game::writeNameToFile()`  
-  `void Game::specialFood()`  
-  `~Game()`
+  `void Game::writeName()`  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.cpp#L62)  
+  `void Game::writeNameToFile()`  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.cpp#L79)  
+  `void Game::specialFood()`  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.cpp#L134)  
+  `~Game()`[Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.h#L21)
 
 - **In main.cpp**  
-  `game.writeNameToFile();`
+  `game.writeNameToFile();`  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/main.cpp#L23)
+
 
 - **In speedcontrol.cpp**  
-  `void speedcontrol::speedSelection()`  
-  `void speedcontrol::printMenu()`  
-  `void speedcontrol::setSelection()`  
-  `void speedcontrol::getPlayerName()`  
-  `std::string speedcontrol::printPlayerName()`  
-  `float speedcontrol::getSpeed()`
+  `void speedcontrol::speedSelection()`  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/speedcontrol.cpp#L7)  
+  `void speedcontrol::printMenu()`  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/speedcontrol.cpp#L16)  
+  `void speedcontrol::setSelection()`  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/speedcontrol.cpp#L45)  
+  `void speedcontrol::getPlayerName()`  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/speedcontrol.cpp#L60)  
+  `std::string speedcontrol::printPlayerName()`  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/speedcontrol.cpp#L66)  
+  `float speedcontrol::getSpeed()`  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/speedcontrol.cpp#L71)
 
 Control structures:
 
 - **In controller.cpp**  
-  Added a new case in the switch
+  Added a new case in the switch  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/controller.cpp#L48)
 
 - **In game.cpp**  
-  Added an if statement in function Update()
+  Added an if statement in function Update()  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.cpp#L112)
 
 - **In renderer.cpp**  
-  Added an if statement in function Render()
+  Added an if statement in function Render()  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/renderer.cpp#L53)
 
 - **In speedcontrol.cpp**  
-  Added an switch statement in function setSelection()
+  Added an switch statement in function setSelection()  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/speedcontrol.cpp#L47)
 
 I/O Operations
 
 - **In controller.cpp**  
-  Added the pause/resume function in pauseGame() using std::getline
+  Added the pause/resume function in pauseGame() using std::getline  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/controller.cpp#L17)
 
 - **In game.cpp**  
-  Added the file writing function: writeName() using std::ofstream
+  Added the file writing function: writeName() using std::ofstream  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.cpp#L64)
 
 - **In speedcontrol.cpp**  
-  Added a speed selection input option using std::cin in speedSelection()
-  Print to the standard console using printMenu()
-  Get the player name using std::getline() in getPlayerName()
+  Added a speed selection input option using std::cin in speedSelection()  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/speedcontrol.cpp#L11)
+  Print to the standard console using printMenu()  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/speedcontrol.cpp#L16)
+  Get the player name using std::getline() in getPlayerName()  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/speedcontrol.cpp#L63)
 
 
 ### Object Oriented Programming
@@ -214,16 +217,16 @@ I/O Operations
 
 A new class `speedcontrol` is created inside the `speedcontrol.h` file in order to get the input from the user for the game difficulty selection. This class has public and private member variables and methods.
 
-- **In speedcontrol.cpp**  
-  Added a new class speedcontrol with public and private attributes
+- **In speedcontrol.h/cpp**  
+  Added a new class speedcontrol with public and private attributes  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/speedcontrol.h#L8)
 
 - **In snake.h**  
-  Modified the constructor of class Snake to accept a new argument (speedcontrol *control)
-  Initialise the member functions of class speedcontrol using the object.
+  Modified the constructor of class Snake to accept a new argument (speedcontrol *control)  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/snake.h#L14)  
+  Initialise the member functions of class speedcontrol using the object.  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/snake.h#L49)  
 
 - **In game.cpp**  
-  Modified the order of the parameter list of Game class constructor
-  Initiliase the memory dynamically inside the Game class constructor for the speedcontrol class object
+  Modified the order of the parameter list of Game class constructor  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.cpp#L10)  
+  Initiliase the memory dynamically inside the Game class constructor for the speedcontrol class object  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.cpp#L11)  
 
 ### Memory Management
 
@@ -233,15 +236,15 @@ A new class `speedcontrol` is created inside the `speedcontrol.h` file in order 
 
 
 - **In game.h/cpp**  
-  Declared a dynamic object of class speedcontrol as private (speedcontrol *control;)
-  Deleted the dynamic allocated variable control inside constructor
-  In constructor, pass the pointer in the Snake class
-  Used the control object to acess the member methods
+  Declared a dynamic object of class speedcontrol as private (speedcontrol *control;)  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.h#L25)  
+  Deleted the dynamic allocated variable control inside constructor  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.h#L21)  
+  In constructor, pass the pointer in the Snake class  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.cpp#L12)  
+  Used the control object to access the member methods  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/game.cpp#L67)  
 
 - **In snake.h/cpp**  
-  Declared a dynamic object of class speedcontrol as private (speedcontrol *controlSnake_;)
-  Initialised in the constructor with the value from the Game class
-  Used the control object to acess the member methods
+  Declared a dynamic object of class speedcontrol as private (speedcontrol *controlSnake_;)  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/snake.h#L49)  
+  Initialised in the constructor with the value from the Game class  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/snake.h#L14)  
+  Used the control object to acess the member methods  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/snake.h#L21)  
 
 
 
