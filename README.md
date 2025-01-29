@@ -4,7 +4,7 @@ Snake Game is a simple 2D C++ based game which is inspired from a Stackoverflow 
 
 The SDL library(opens in a new tab) is widely used for Game development as a tool to abstract the hardware so you don't need to worry about working with the hardware directly. SDL manages video, audio, input devices, and other components and provides you with a simple library interface.
 
-### Snake Game Improvements and New Features
+## Snake Game Improvements and New Features
 
 The Snake Game has been significantly improved with the addition of new features, making it more user-friendly and interactive. The key additions are:
 
@@ -16,7 +16,7 @@ The Snake Game has been significantly improved with the addition of new features
 
 In the following sections, we will provide a detailed explanation of the newly added features. Additionally, we will cover the C++ concepts used in this project, offering a deeper understanding of the current implementation.
 
-#### Pause/Resume Functionality
+### Pause/Resume Functionality
 
 For this feature, a new function called `pauseGame()` is added in the `controller.h` file. The logic is simple and based on the earlier implementation where a function takes input from the keyboard using `SDL_Event`. The keyboard key `'p'` is mapped to a function, such that when the key `'p'` is pressed, it pauses the game using `std::cin`, which essentially waits for input from the keyboard. This implementation is straightforward and effective for pausing the game.
 
@@ -29,7 +29,7 @@ void Controller::pauseGame() const
 } 
 ```
 
-#### Player Name Input
+### Player Name Input
 
 This feature allows identifying the player by capturing their name. The player's name is entered via the keyboard and stored in a `std::string`, making it available for use later, such as saving it to a text file. This functionality is implemented in the newly added file `speedcontrol.cpp` within the `getPlayerName()` function, which handles capturing the input from the user.
 
@@ -40,7 +40,7 @@ void speedcontrol::getPlayerName()
   std::getline(std::cin, playerName_);
 }
 ```
-#### Game Difficulty Selection
+### Game Difficulty Selection
 
 This feature enhances the Snake Game by making the gameplay more intuitive through adjustable difficulty levels. The game asks the player to select a difficulty level at the start, which determines the initial speed of the snake. There are two difficulty levels: **Easy** and **Hard**, where the snake starts at different speeds. As the snake eats more food and grows, its speed increases.
 
@@ -66,7 +66,7 @@ To make the game more user-friendly, a nice UI is provided in the terminal when 
 
 <center><img src="images/snake_game_difficutly.png"/></center>
 
-#### Score and Player Name Saving
+### Score and Player Name Saving
 
 It's always beneficial to store the player's name and score for future reference, whether to track the highest score or for historical purposes. In this project, at the end of the gameplay, the player’s name and corresponding score are written to a text file named **Gamestatics.txt**. This file is created if it doesn't exist, and if it does, the latest game details are **appended** at the end. This ensures that the latest data is always available at the bottom of the text file.
 
@@ -92,7 +92,7 @@ void Game::writeName()
 }
 ```
  
-#### Special Food (beta)
+### Special Food (beta)
 
 This feature adds special food randomly among the normal food. The normal food is yellow in color, but when special food appears, the renderer changes its color to red. 
 
@@ -101,7 +101,7 @@ There is currently an issue with the real-time score updating. This is a known p
 <center><img src="images/snake-gif.gif"/></center>
 
 
-### Project Rubrics
+## Project Rubrics
 
 The following project rubrics have been completed in this project:
 
@@ -112,11 +112,11 @@ The following project rubrics have been completed in this project:
 - **Memory Management**: Proper memory management techniques are used, including resource cleanup and memory allocation where needed.
 
 
-#### README Overview
+### README Overview
 
 This README serves as a comprehensive documentation that explains the newly added features of the Snake Game as well as how to run it along with its dependencies. For more detailed instructions, please refer to the "Build Snake Game" section at the end of this README.
 
-#### Compiling and Testing
+### Compiling and Testing
 
 1) The submission must compile and run without errors on the Udacity project workspace.
 
@@ -135,7 +135,7 @@ The name of the game executable is **SnakeGame**, which can be launched using th
 ./SnakeGame
 ```
 
-#### Loops, Functions, I/O
+### Loops, Functions, I/O
 
 In the project, various control structures, functions, and input/output operations are utilized to improve the user interaction. The basic structure of the project is outlined below, and in this section, different usages of loops, functions, etc., are provided with links to specific implementations.
 
@@ -206,7 +206,7 @@ I/O Operations
   Get the player name using std::getline() in getPlayerName()
 
 
-#### Object Oriented Programming
+### Object Oriented Programming
 
 1) One class is added to the project with appropriate access specifiers for class members
 2) Class constructors utilize member initialization lists
@@ -225,7 +225,7 @@ A new class `speedcontrol` is created inside the `speedcontrol.h` file in order 
   Modified the order of the parameter list of Game class constructor
   Initiliase the memory dynamically inside the Game class constructor for the speedcontrol class object
 
-#### Memory Management
+### Memory Management
 
 1) The project makes use of references in function declarations
 2) The project uses destructors appropriately
