@@ -1,3 +1,0 @@
-/home/rony/Rony/Snake-Game/build/CMakeFiles/rebuild_cache.dir
-/home/rony/Rony/Snake-Game/build/CMakeFiles/edit_cache.dir
-/home/rony/Rony/Snake-Game/build/CMakeFiles/SnakeGame.dir
