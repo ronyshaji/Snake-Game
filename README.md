@@ -1,4 +1,4 @@
-# CPPND: Capstone Snake Game Example
+# Snake Game
 
 Snake Game is a simple 2D C++ based game which is inspired from a Stackoverflow post and set of ansers to the post. The game is improvised with additional features and as a part of the project, some new features are added to the Snake Game, which makes it more like a real game. It uses the SDL game programming library in order to render and display the elements of the game.
 
@@ -12,7 +12,7 @@ The Snake Game has been significantly improved with the addition of new features
  - **Player Name Input:** Ability to enter the name of the player at game start.
  - **Game Difficulty Selection:** Players can choose the difficulty level (Easy or Hard) at the beginning of the game.
  - **Score and Player Name Saving:** The player's name and score are saved to a text file, allowing users to keep track of their performance.
- - **Special Food:** 
+ - **Special Food (Beta):** Special food appears randomly and changes the food's appearance in the game.
 
 In the following sections, we will provide a detailed explanation of the newly added features. Additionally, we will cover the C++ concepts used in this project, offering a deeper understanding of the current implementation.
 
@@ -91,21 +91,159 @@ void Game::writeName()
   }
 }
 ```
+ 
+#### Special Food (beta)
+
+This feature adds special food randomly among the normal food. The normal food is yellow in color, but when special food appears, the renderer changes its color to red. 
+
+There is currently an issue with the real-time score updating. This is a known problem, and based on the current logic, it's challenging to find a solution. The feature is still in the beta phase and requires more changes.
+
+<center><img src="images/snake-gif.gif"/></center>
 
 
+### Project Rubrics
+
+The following project rubrics have been completed in this project:
+
+- **README**: A comprehensive README file is provided.
+- **Compiling and Testing**: Ensured the game compiles correctly and has been thoroughly tested.
+- **Loops, Functions, I/O**: Utilized loops, functions, and input/output for game mechanics and player interaction.
+- **Object-Oriented Programming**: Employed OOP principles for designing the game structure and managing game objects.
+- **Memory Management**: Proper memory management techniques are used, including resource cleanup and memory allocation where needed.
 
 
+#### README Overview
+
+This README serves as a comprehensive documentation that explains the newly added features of the Snake Game as well as how to run it along with its dependencies. For more detailed instructions, please refer to the "Build Snake Game" section at the end of this README.
+
+#### Compiling and Testing
+
+1) The submission must compile and run without errors on the Udacity project workspace.
+
+The project uses **CMake** to generate the required make files. The parent directory contains the `CMakeLists.txt` file, which is updated with the new programs. 
+
+It is recommended to create a directory called **build** and run the following commands:
+
+```bash
+mkdir build
+cd build
+cmake .. && make
+```
+The name of the game executable is **SnakeGame**, which can be launched using the following command:
+
+```
+./SnakeGame
+```
+
+#### Loops, Functions, I/O
+
+In the project, various control structures, functions, and input/output operations are utilized to improve the user interaction. The basic structure of the project is outlined below, and in this section, different usages of loops, functions, etc., are provided with links to specific implementations.
+
+1) Project reads data from standard console and writes to a file  
+2) Project accepts user input and processes the input
+3) Project demonstrates an understanding of C++ functions and control structures
+
+```
+src/
+ ├── controller.cpp
+ ├── controller.h
+ ├── game.cpp
+ ├── game.h
+ ├── main.cpp
+ ├── renderer.cpp
+ ├── renderer.h
+ ├── snake.cpp
+ ├── snake.h
+ ├── speedcontrol.cpp
+ └── speedcontrol.h
+```
+Below are the newly added functions:
+- **In controller.cpp**  
+  `void Controller::pauseGame() const`
+
+- **In game.cpp**  
+  `void Game::writeName()`  
+  `void Game::writeNameToFile()`  
+  `void Game::specialFood()`  
+  `~Game()`
+
+- **In main.cpp**  
+  `game.writeNameToFile();`
+
+- **In speedcontrol.cpp**  
+  `void speedcontrol::speedSelection()`  
+  `void speedcontrol::printMenu()`  
+  `void speedcontrol::setSelection()`  
+  `void speedcontrol::getPlayerName()`  
+  `std::string speedcontrol::printPlayerName()`  
+  `float speedcontrol::getSpeed()`
+
+Control structures:
+
+- **In controller.cpp**  
+  Added a new case in the switch
+
+- **In game.cpp**  
+  Added an if statement in function Update()
+
+- **In renderer.cpp**  
+  Added an if statement in function Render()
+
+- **In speedcontrol.cpp**  
+  Added an switch statement in function setSelection()
+
+I/O Operations
+
+- **In controller.cpp**  
+  Added the pause/resume function in pauseGame() using std::getline
+
+- **In game.cpp**  
+  Added the file writing function: writeName() using std::ofstream
+
+- **In speedcontrol.cpp**  
+  Added a speed selection input option using std::cin in speedSelection()
+  Print to the standard console using printMenu()
+  Get the player name using std::getline() in getPlayerName()
 
 
+#### Object Oriented Programming
+
+1) One class is added to the project with appropriate access specifiers for class members
+2) Class constructors utilize member initialization lists
+3) Classes abstract implementation details from their interface
+
+A new class `speedcontrol` is created inside the `speedcontrol.h` file in order to get the input from the user for the game difficulty selection. This class has public and private member variables and methods.
+
+- **In speedcontrol.cpp**  
+  Added a new class speedcontrol with public and private attributes
+
+- **In snake.h**  
+  Modified the constructor of class Snake to accept a new argument (speedcontrol *control)
+  Initialise the member functions of class speedcontrol using the object.
+
+- **In game.cpp**  
+  Modified the order of the parameter list of Game class constructor
+  Initiliase the memory dynamically inside the Game class constructor for the speedcontrol class object
+
+#### Memory Management
+
+1) The project makes use of references in function declarations
+2) The project uses destructors appropriately
+3) The project uses scope / Resource Acquisition Is Initialization (RAII) where appropriate
 
 
-This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
+- **In game.h/cpp**  
+  Declared a dynamic object of class speedcontrol as private (speedcontrol *control;)
+  Deleted the dynamic allocated variable control inside constructor
+  In constructor, pass the pointer in the Snake class
+  Used the control object to acess the member methods
 
-<img src="snake_game.gif"/>
+- **In snake.h/cpp**  
+  Declared a dynamic object of class speedcontrol as private (speedcontrol *controlSnake_;)
+  Initialised in the constructor with the value from the Game class
+  Used the control object to acess the member methods
 
-The Capstone Project gives you a chance to integrate what you've learned throughout this program. This project will become an important part of your portfolio to share with current and future colleagues and employers.
 
-In this project, you can build your own C++ application or extend this Snake game, following the principles you have learned throughout this Nanodegree Program. This project will demonstrate that you can independently create applications using a wide range of C++ features.
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
@@ -127,7 +265,7 @@ In this project, you can build your own C++ application or extend this Snake gam
 1. Clone this repo.
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Run it: `./SnakeGame`.
+4. Run it: `./SnakeGame`
 
 
 ## CC Attribution-ShareAlike 4.0 International
