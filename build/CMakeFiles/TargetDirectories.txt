@@ -1,3 +1,3 @@
-/Users/ronyshaji/Documents/Udacity Nano Degree - C++/CppND-Capstone-Snake-Game/build/CMakeFiles/SnakeGame.dir
-/Users/ronyshaji/Documents/Udacity Nano Degree - C++/CppND-Capstone-Snake-Game/build/CMakeFiles/edit_cache.dir
-/Users/ronyshaji/Documents/Udacity Nano Degree - C++/CppND-Capstone-Snake-Game/build/CMakeFiles/rebuild_cache.dir
+/home/rony/Rony/Snake-Game/build/CMakeFiles/rebuild_cache.dir
+/home/rony/Rony/Snake-Game/build/CMakeFiles/edit_cache.dir
+/home/rony/Rony/Snake-Game/build/CMakeFiles/SnakeGame.dir

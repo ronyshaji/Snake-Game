@@ -24,6 +24,6 @@ include_directories(${SDL2_TTF_INCLUDE_DIR})
 # Add the SDL2_ttf library to link
 link_directories("/opt/homebrew/Cellar/sdl2_ttf/2.24.0/lib")  # Add the directory where the SDL_ttf library is located
 
-add_executable(SnakeGame src/main.cpp src/game.cpp src/controller.cpp src/renderer.cpp src/snake.cpp src/player.cpp)
+add_executable(SnakeGame src/main.cpp src/game.cpp src/controller.cpp src/renderer.cpp src/snake.cpp src/speedcontrol.cpp)
 string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
 target_link_libraries(SnakeGame ${SDL2_LIBRARIES})

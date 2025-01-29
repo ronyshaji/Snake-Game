@@ -8,7 +8,7 @@ The SDL library(opens in a new tab) is widely used for Game development as a too
 
 The Snake Game has been significantly improved with the addition of new features, making it more user-friendly and interactive. The key additions are:
 
- - **Pause/Resume Functionality:** sers can now pause and resume the game using keyboard inputs.
+ - **Pause/Resume Functionality:** Users can now pause and resume the game using keyboard inputs.
  - **Player Name Input:** Ability to enter the name of the player at game start.
  - **Game Difficulty Selection:** Players can choose the difficulty level (Easy or Hard) at the beginning of the game.
  - **Score and Player Name Saving:** The player's name and score are saved to a text file, allowing users to keep track of their performance.
@@ -16,7 +16,7 @@ The Snake Game has been significantly improved with the addition of new features
 
 In the following sections, we will provide a detailed explanation of the newly added features. Additionally, we will cover the C++ concepts used in this project, offering a deeper understanding of the current implementation.
 
-### Pause/Resume Functionality
+### 1) Pause/Resume Functionality
 
 For this feature, a new function called `pauseGame()` is added in the `controller.h` file. The logic is simple and based on the earlier implementation where a function takes input from the keyboard using `SDL_Event`. The keyboard key `'p'` is mapped to a function, such that when the key `'p'` is pressed, it pauses the game using `std::cin`, which essentially waits for input from the keyboard. This implementation is straightforward and effective for pausing the game.
 
@@ -29,7 +29,7 @@ void Controller::pauseGame() const
 } 
 ```
 
-### Player Name Input
+### 2) Player Name Input
 
 This feature allows identifying the player by capturing their name. The player's name is entered via the keyboard and stored in a `std::string`, making it available for use later, such as saving it to a text file. This functionality is implemented in the newly added file `speedcontrol.cpp` within the `getPlayerName()` function, which handles capturing the input from the user.
 
@@ -40,7 +40,7 @@ void speedcontrol::getPlayerName()
   std::getline(std::cin, playerName_);
 }
 ```
-### Game Difficulty Selection
+### 3) Game Difficulty Selection
 
 This feature enhances the Snake Game by making the gameplay more intuitive through adjustable difficulty levels. The game asks the player to select a difficulty level at the start, which determines the initial speed of the snake. There are two difficulty levels: **Easy** and **Hard**, where the snake starts at different speeds. As the snake eats more food and grows, its speed increases.
 
@@ -66,7 +66,7 @@ To make the game more user-friendly, a nice UI is provided in the terminal when 
 
 <center><img src="images/snake_game_difficutly.png"/></center>
 
-### Score and Player Name Saving
+### 4) Score and Player Name Saving
 
 It's always beneficial to store the player's name and score for future reference, whether to track the highest score or for historical purposes. In this project, at the end of the gameplay, the player’s name and corresponding score are written to a text file named **Gamestatics.txt**. This file is created if it doesn't exist, and if it does, the latest game details are **appended** at the end. This ensures that the latest data is always available at the bottom of the text file.
 
@@ -92,7 +92,7 @@ void Game::writeName()
 }
 ```
  
-### Special Food (beta)
+### 5) Special Food (beta)
 
 This feature adds special food randomly among the normal food. The normal food is yellow in color, but when special food appears, the renderer changes its color to red. 
 
