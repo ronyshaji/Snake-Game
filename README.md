@@ -316,10 +316,10 @@ A new class `speedcontrol` is created inside the `speedcontrol.h` file in order 
 2) It utilizes `std::mutex`, `std::unique_lock`, `std::lock_guard`, `std::conditional_variable`
 
 - **In game.h/cpp**   
-  Declared a function called `specialFoodThread()` which is run by a separate thread.  
+  Declared a function called `specialFoodThread()` which is run by a separate thread[Link](https://github.com/ronyshaji/Snake-Game/blob/9c8c0951bfc44055e517a808523045a9f9d97c28/src/game.cpp#L101)  
   The shared variable are locked using std::mutex.  
-  The thread fucntion is started in a function called `StartSpecialFoodThread()`.  
-  The thread is stopped inside the destructor of the Game class by calling the function `StopSpecialFoodThread()` 
+  The thread fucntion is started in a function called `StartSpecialFoodThread()`[Link](https://github.com/ronyshaji/Snake-Game/blob/9c8c0951bfc44055e517a808523045a9f9d97c28/src/game.cpp#L90)  
+  The thread is stopped inside the destructor of the Game class by calling the function `StopSpecialFoodThread()`[Link](https://github.com/ronyshaji/Snake-Game/blob/9c8c0951bfc44055e517a808523045a9f9d97c28/src/game.cpp#L94) 
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
