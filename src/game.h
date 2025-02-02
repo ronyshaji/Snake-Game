@@ -4,6 +4,7 @@
 #include <random>
 #include <mutex>
 #include <thread>
+#include <condition_variable>
 #include "SDL.h"
 #include "controller.h"
 #include "renderer.h"
