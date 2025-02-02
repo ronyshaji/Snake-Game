@@ -103,7 +103,7 @@ void Game::specialFoodThread() {
   {
     std::this_thread::sleep_for(std::chrono::seconds(dist(engine)));
 
-    //Pause teh thread till a condition is fulfilled: Needed for the game pause feature
+    //Pause the thread till a condition is fulfilled: Needed for the game pause feature
     std::unique_lock<std::mutex> lockk(mtx);
     pauseCv.wait(lockk, [this] { return !isPaused; });
 

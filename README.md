@@ -12,7 +12,13 @@ The Snake Game has been significantly improved with the addition of new features
  - **Player Name Input:** Ability to enter the name of the player at game start.
  - **Game Difficulty Selection:** Players can choose the difficulty level (Easy or Hard) at the beginning of the game.
  - **Score and Player Name Saving:** The player's name and score are saved to a text file, allowing users to keep track of their performance.
- - **Special Food (Beta):** Special food appears randomly and changes the food's appearance in the game.
+ - **Special Food:** Special food appears randomly and changes the food's appearance in the game along with multiple score.
+
+### Following concepts of C++ are used in this project:
+  - Object Oriented Programming
+  - Multithreading 
+  - Memory Management using smart pointers
+  - Loops, Functions and other basic c++ features
 
 In the following sections, we will provide a detailed explanation of the newly added features. Additionally, we will cover the C++ concepts used in this project, offering a deeper understanding of the current implementation.
 
@@ -92,15 +98,73 @@ void Game::writeName()
 }
 ```
  
-### 5) Special Food (beta)
+### 5) Special Food Feature in the Snake Game  
 
-This feature adds special food randomly among the normal food. The normal food is yellow in color, but when special food appears, the renderer changes its color to red. 
+This feature introduces **special food** that appears randomly alongside normal food. A **separate thread** is started, ensuring that special food spawns at random intervals and remains visible for approximately **10 seconds** before disappearing.  
 
-There is currently an issue with the real-time score updating. This is a known problem, and based on the current logic, it's challenging to find a solution. The feature is still in the beta phase and requires more changes.
+#### Visual Difference  
+- **Normal food** 🟡 is rendered in **yellow**.  
+- **Special food** 🔴 is rendered in **red**.  
+
+#### Gameplay Impact  
+- Eating **normal food** increases the score by `+1`.  
+- Catching **special food** doubles the reward, increasing the score by `+2`.  
+
+#### Pausing Mechanism  
+When the game is paused, the **special food thread also pauses** and resumes automatically once the game continues. This behavior makes the feature feel more dynamic and closer to a real game experience.  
+
+#### Concurrency & Threading  
+This feature effectively utilizes:  
+
+```cpp
+std::lock_guard<std::mutex> lock(mtx); // Ensures safe access to shared resources
+std::mutex mtx;                        // Prevents race conditions
+std::condition_variable pauseCv;       // Synchronizes the special food thread with game state changes
+```
 
 <center><img src="images/snake-gif.gif"/></center>
 
+```cpp
+void Game::specialFoodThread() {
+  while (running)
+  {
+    std::this_thread::sleep_for(std::chrono::seconds(dist(engine)));
 
+    //Pause the thread till a condition is fulfilled: Needed for the game pause feature
+    std::unique_lock<std::mutex> lockk(mtx);
+    pauseCv.wait(lockk, [this] { return !isPaused; });
+
+    lockk.unlock();
+
+    SDL_Point tempfood;
+    PlaceFood(tempfood);
+    {
+      std::lock_guard<std::mutex> lock(mtx);
+      specialFood_ = tempfood;
+      specialFoodActive = true;
+    }
+    bool overlap = false;
+    { 
+      std::lock_guard<std::mutex> lock(mtx);
+      overlap = ((specialFood_.x == food.x) && (specialFood_.y == food.y));
+    }
+    if (overlap)
+    {
+      PlaceFood(tempfood);
+      {
+        std::lock_guard<std::mutex> lock(mtx);
+        specialFood_ = tempfood;
+      }
+      specialFoodActive = true;
+    }
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+    {
+      std::lock_guard<std::mutex> lock(mtx);
+      specialFoodActive = false;
+    }
+  }
+}
+```
 ## Project Rubrics
 
 The following project rubrics have been completed in this project:
@@ -246,7 +310,16 @@ A new class `speedcontrol` is created inside the `speedcontrol.h` file in order 
   Initialised in the constructor with the value from the Game class  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/snake.h#L14)  
   Used the control object to acess the member methods  [Link](https://github.com/ronyshaji/Snake-Game/blob/6fc26205aaa1f5237e8a5fe3d4b774af2f2ea044/src/snake.h#L21)  
 
+### Multi Threading
 
+1) The project make use of multi threading where a separate thread along with main thread for special food.
+2) It utilizes `std::mutex`, `std::unique_lock`, `std::lock_guard`, `std::conditional_variable`
+
+- **In game.h/cpp**   
+  Declared a function called `specialFoodThread()` which is run by a separate thread.  
+  The shared variable are locked using std::mutex.  
+  The thread fucntion is started in a function called `StartSpecialFoodThread()`.  
+  The thread is stopped inside the destructor of the Game class by calling the function `StopSpecialFoodThread()` 
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
