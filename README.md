@@ -323,9 +323,10 @@ A new class `speedcontrol` is created inside the `speedcontrol.h` file in order 
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
-  * All OSes: [click here for installation instructions](https://cmake.org/install/).    
-  `sudo apt update`  
-  `sudo apt install cmake`
+  * All OSes: [click here for installation instructions](https://cmake.org/install/). 
+
+      `sudo apt update`  
+      `sudo apt install cmake`
 
 * make >= 4.1 (Linux, Mac), 3.81 (Windows)
   * Linux: make is installed by default on most Linux distros
@@ -335,7 +336,7 @@ A new class `speedcontrol` is created inside the `speedcontrol.h` file in order 
   * All installation instructions can be found [here](https://wiki.libsdl.org/Installation)
   >Note that for Linux, an `apt` or `apt-get` installation is preferred to building from source.  
 
-  `sudo apt-get install libsdl2-ttf-dev`
+      `sudo apt-get install libsdl2-ttf-dev`
 * gcc/g++ >= 5.4
   * Linux: gcc / g++ is installed by default on most Linux distros
   * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
