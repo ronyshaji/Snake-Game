@@ -1,5 +1,7 @@
 #include "game.h"
 #include <iostream>
+#include <thread>
+#include <mutex>
 #include "SDL.h"
 #include <string>
 #include <fstream>
@@ -15,7 +17,12 @@ Game::Game(std::size_t grid_width, std::size_t grid_height)
       random_h(0, static_cast<int>(grid_height - 1)),
       dist(1, 10)
 {
-  PlaceFood();
+  PlaceFood(food);
+}
+
+Game::~Game() {   
+  StopSpecialFoodThread();
+  delete control; 
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
@@ -27,7 +34,6 @@ void Game::Run(Controller const &controller, Renderer &renderer,
   Uint32 frame_end;
   Uint32 frame_duration;
   int frame_count = 0;
-  bool running = true;
 
   while (running)
   {
@@ -36,7 +42,7 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, snake);
     Update();
-    renderer.Render(snake, food, isSpecial);
+    renderer.Render(snake, food, specialFood_, specialFoodActive);
     frame_end = SDL_GetTicks();
 
     // Keep track of how long each loop through the input/update/render cycle
@@ -81,13 +87,60 @@ void Game::writeName()
   }
 }
 
-// Getter function to access the private method
-void Game::writeNameToFile()
-{
-  writeName();
+void Game::StartSpecialFoodThread() {
+  special_food_thread = std::thread(&Game::specialFoodThread, this);
 }
 
-void Game::PlaceFood()
+void Game::StopSpecialFoodThread() {
+    if (special_food_thread.joinable()) {
+        special_food_thread.join();  // Wait for the thread to finish
+    }
+}
+
+
+void Game::specialFoodThread() {
+  while (running)
+  {
+    std::this_thread::sleep_for(std::chrono::seconds(dist(engine)));
+
+    //Pause teh thread till a condition is fulfilled: Needed for the game pause feature
+    std::unique_lock<std::mutex> lockk(mtx);
+    pauseCv.wait(lockk, [this] { return !isPaused; });
+
+    lockk.unlock();
+
+    SDL_Point tempfood;
+    PlaceFood(tempfood);
+    {
+      std::lock_guard<std::mutex> lock(mtx);
+      specialFood_ = tempfood;
+      specialFoodActive = true;
+    }
+    bool overlap = false;
+    { 
+      std::lock_guard<std::mutex> lock(mtx);
+      overlap = ((specialFood_.x == food.x) && (specialFood_.y == food.y));
+    }
+    if (overlap)
+    {
+      PlaceFood(tempfood);
+      {
+        std::lock_guard<std::mutex> lock(mtx);
+        specialFood_ = tempfood;
+      }
+      specialFoodActive = true;
+    }
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+    {
+      std::lock_guard<std::mutex> lock(mtx);
+      specialFoodActive = false;
+    }
+  }
+}
+
+
+
+void Game::PlaceFood(SDL_Point &point)
 {
   int x, y;
   while (true)
@@ -97,9 +150,10 @@ void Game::PlaceFood()
     // Check that the location is not occupied by a snake item before placing
     // food.
     if (!snake.SnakeCell(x, y))
-    {
-      food.x = x;
-      food.y = y;
+    { 
+      std::lock_guard<std::mutex> lock(mtx);
+      point.x = x;
+      point.y = y;
       return;
     }
   }
@@ -119,22 +173,21 @@ void Game::Update()
   // Check if there's food over here
   if (food.x == new_x && food.y == new_y)
   {
-
-    // Changed the logic to accomodate special food
-    if (firstpass)
-    {
-      isSpecial = specialFood(engine);
-    }
-
+    score++;
     foodUpdate();
-    firstpass = true;
-    score += (isSpecial) ? 2 : 1;
+  }
+
+  if ((specialFoodActive) && (specialFood_.x == new_x) && (specialFood_.y == new_y))
+  {
+    std::lock_guard<std::mutex> lock(mtx);
+    score +=2;
+    specialFoodActive = false;
   }
 }
 
 void Game::foodUpdate()
 {
-  PlaceFood();
+  PlaceFood(food);
   // Grow snake and increase speed.
   snake.GrowBody();
   snake.speed += 0.02;
@@ -145,6 +198,25 @@ bool Game::specialFood(std::mt19937 &rng)
 {
   int randNum = dist(rng);
   return (randNum <= 2);
+}
+
+// Getter function to access the private method
+void Game::writeNameToFile()
+{
+  writeName();
+}
+
+void Game::pauseGame(bool newIsPaused)
+{
+  if (newIsPaused)
+  {
+    isPaused = true;
+    std::cout << "Game paused" << std::endl;
+    std::cout << "enter 'S' to continue" << std::endl;
+    std::getline(std::cin, key_);
+    isPaused = false;
+    pauseCv.notify_all();
+  }
 }
 
 int Game::GetScore() const { return score; }

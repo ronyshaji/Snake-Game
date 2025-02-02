@@ -29,7 +29,6 @@ public:
     controlSnake_->getPlayerName();
     speed = controlSnake_->getSpeed();
   }
-
   ~Snake() {}
 
   void Update();

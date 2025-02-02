@@ -1,8 +1,12 @@
+#include "game.h"
 #include "controller.h"
 #include <iostream>
 #include "SDL.h"
 #include "snake.h"
 #include <thread>
+
+Controller::Controller(Game &game) : game(game) {}
+
 
 void Controller::ChangeDirection(Snake &snake, Snake::Direction input,
                                  Snake::Direction opposite) const
@@ -10,13 +14,6 @@ void Controller::ChangeDirection(Snake &snake, Snake::Direction input,
   if (snake.direction != opposite || snake.size == 1)
     snake.direction = input;
   return;
-}
-
-void Controller::pauseGame() const
-{
-  std::cout << "Game paused" << std::endl;
-  std::cout << "enter 'S' to continue" << std::endl;
-  std::getline(std::cin, key_);
 }
 
 void Controller::HandleInput(bool &running, Snake &snake) const
@@ -53,7 +50,8 @@ void Controller::HandleInput(bool &running, Snake &snake) const
         break;
       case SDLK_p:
         std::cout << "Key P pressed" << std::endl;
-        pauseGame();
+        //isPaused = true;
+        game.pauseGame(true);
         break;
       }
     }
