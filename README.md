@@ -316,21 +316,26 @@ A new class `speedcontrol` is created inside the `speedcontrol.h` file in order 
 2) It utilizes `std::mutex`, `std::unique_lock`, `std::lock_guard`, `std::conditional_variable`
 
 - **In game.h/cpp**   
-  Declared a function called `specialFoodThread()` which is run by a separate thread[Link](https://github.com/ronyshaji/Snake-Game/blob/9c8c0951bfc44055e517a808523045a9f9d97c28/src/game.cpp#L101)  
+  Declared a function called `specialFoodThread()` which is run by a separate thread [Link](https://github.com/ronyshaji/Snake-Game/blob/9c8c0951bfc44055e517a808523045a9f9d97c28/src/game.cpp#L101)  
   The shared variable are locked using std::mutex.  
   The thread fucntion is started in a function called `StartSpecialFoodThread()`[Link](https://github.com/ronyshaji/Snake-Game/blob/9c8c0951bfc44055e517a808523045a9f9d97c28/src/game.cpp#L90)  
   The thread is stopped inside the destructor of the Game class by calling the function `StopSpecialFoodThread()`[Link](https://github.com/ronyshaji/Snake-Game/blob/9c8c0951bfc44055e517a808523045a9f9d97c28/src/game.cpp#L94) 
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
-  * All OSes: [click here for installation instructions](https://cmake.org/install/)
+  * All OSes: [click here for installation instructions](https://cmake.org/install/).    
+  `sudo apt update`  
+  `sudo apt install cmake`
+
 * make >= 4.1 (Linux, Mac), 3.81 (Windows)
   * Linux: make is installed by default on most Linux distros
   * Mac: [install Xcode command line tools to get make](https://developer.apple.com/xcode/features/)
   * Windows: [Click here for installation instructions](http://gnuwin32.sourceforge.net/packages/make.htm)
 * SDL2 >= 2.0
   * All installation instructions can be found [here](https://wiki.libsdl.org/Installation)
-  >Note that for Linux, an `apt` or `apt-get` installation is preferred to building from source. 
+  >Note that for Linux, an `apt` or `apt-get` installation is preferred to building from source.  
+
+  `sudo apt-get install libsdl2-ttf-dev`
 * gcc/g++ >= 5.4
   * Linux: gcc / g++ is installed by default on most Linux distros
   * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
