@@ -5,8 +5,7 @@
 #include "SDL.h"
 #include <string>
 #include <fstream>
-#include <string>
-#include <thread>
+#include <condition_variable>
 #include "speedcontrol.h"
 
 Game::Game(std::size_t grid_width, std::size_t grid_height)

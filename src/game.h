@@ -41,7 +41,7 @@ private:
   std::uniform_int_distribution<int> random_w;
   std::uniform_int_distribution<int> random_h;
   std::uniform_int_distribution<int> dist;
-  std::mutex mtx;
+  std::mutex mtx; 
   bool specialFoodActive{false};
   bool running = true;
   std::thread special_food_thread; 
